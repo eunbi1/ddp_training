@@ -10,7 +10,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 def example(rank, world_size):
     # default process group
     local_rank = int(os.environ['LOCAL_RANK'])
-    print(f'rank: {rank} local_rank: {local_rank} world_size: {world_size})')
+    print(f'rank: {rank} local_rank: {local_rank} world_size: {world_size}')
     dist.init_process_group(backend="nccl", rank= rank, world_size = world_size)
     # 이 함수를 호출함으로써 여러 개의 프로세스가 서로 통신할 수 있도록 초기화한다
     # 만일 초기화를 하지 않는다면 발생하는 문제점
@@ -39,6 +39,7 @@ def example(rank, world_size):
     loss_fn(outputs,labels).backward()
     optimizer.step()
     print('forward & backward')
+    print('finished')
     
 def main():
     # global rank 
